@@ -1,17 +1,7 @@
-import { useEffect } from 'react';
-import { store } from '../state/store';
-import localDB from '../db/db';
-import { useSelector } from '@legendapp/state/react';
+import { useEntries } from '../hooks/useEntries';
 
 const Home = () => {
-  const entries = useSelector(store.entries);
-
-  useEffect(() => {
-    localDB.allDocs({ include_docs: true }).then((result) => {
-      console.log(result);
-      store.entries.set(result.rows.map((row) => row.doc!));
-    });
-  }, []);
+  const entries = useEntries();
 
   return (
     <div>

@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router';
 import Navigation from './Navigation';
+import PdaDevice from './PdaDevice';
 
 const Layout = () => {
   return (
     <main>
-      <div>
+      <PdaDevice>
         <Outlet />
         <Navigation />
-      </div>
+      </PdaDevice>
     </main>
   );
 };

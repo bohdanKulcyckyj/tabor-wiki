@@ -1,0 +1,85 @@
+.navigation {
+  @extend %pda-border-radius;
+  @include pda-border($border-purple);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: $background-purple-dark;
+  color: $text-purple-light;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Ubuntu Sans', sans-serif;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__item {
+    display: flex;
+    gap: 0.35rem;
+    position: relative;
+
+    * {
+      color: $text-purple-light;
+      text-transform: none;
+      text-decoration: none;
+    }
+
+    &--separator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        align-self: stretch;
+    }
+
+    &--separator span {
+        display: block;
+        height: 100%;
+    }
+    &--separator span::after {
+      content: '//';
+      position: absolute;
+      top: 50%;
+      transform: translate(50%, 50%);
+      right: 50%;
+      width: 2px;
+      height: 2px;
+      color: $text-purple-secondary;
+      transition: width 0.3s;
+      font-size: 1.5rem;
+      letter-spacing: 0;
+      display: block;
+      font-size: 0.8rem;
+    }
+  }
+
+  @media only screen and (max-width: 880px) {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0.5rem 0.5rem;
+    background-color: $background-purple-dark;
+    font-size: 0.9rem;
+
+    ul {
+      row-gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      gap: 0.2rem;
+      font-size: 0.9rem;
+      &--separator {
+        display: none;
+      }
+    }
+  }
+}
