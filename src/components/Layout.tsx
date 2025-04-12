@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router';
-import Navigation from './Navigation';
 import PdaDevice from './PdaDevice';
 
 const Layout = () => {
@@ -7,7 +6,6 @@ const Layout = () => {
     <main>
       <PdaDevice>
         <Outlet />
-        <Navigation />
       </PdaDevice>
     </main>
   );

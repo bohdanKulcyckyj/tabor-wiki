@@ -13,7 +13,7 @@
   padding: 0.8rem;
   width: 100%;
   max-width: 1000px;
-  height: 50vh;
+  height: $pda-height-desktop;
   border-radius: 10px;
   border: 1px solid #131416;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
@@ -32,3 +32,4 @@
     grid-template-rows: 1fr auto;
   }
 }
+

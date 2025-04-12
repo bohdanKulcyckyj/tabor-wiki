@@ -1,0 +1,16 @@
+$list-item-adjustment: 0.4rem;
+
+.nested-list {
+  // overflow: auto;
+  padding: 1.6rem 1rem;
+  &__item {
+    list-style-type: none;
+    color: $text-white;
+    margin-bottom: $list-item-adjustment;
+    font-size: 0.9rem;
+  }
+
+  &__content {
+    padding: $list-item-adjustment 1rem 0;
+  }
+}

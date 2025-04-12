@@ -1,4 +1,4 @@
-.navigation {
+.pda-navigation {
   @extend %pda-border-radius;
   @include pda-border($border-purple);
 
@@ -14,7 +14,15 @@
   letter-spacing: 1px;
   font-weight: 500;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  font-family: 'Ubuntu Sans', sans-serif;
+  height: 100%;
+  min-height: 0;
+
+  p {
+    font-family: $font-primary;
+    color: $text-purple-light;
+    font-weight: 400;
+  }
+  
   ul {
     display: flex;
     justify-content: space-between;
@@ -29,6 +37,7 @@
 
     * {
       color: $text-purple-light;
+      font-family: $font-primary;
       text-transform: none;
       text-decoration: none;
     }

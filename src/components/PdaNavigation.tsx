@@ -2,33 +2,33 @@ import { Link } from 'react-router';
 import MenuItemIconSrc from '../assets/menu-icon.svg';
 import { useCurrentTime } from '../hooks/useCurrentTime';
 
-const Navigation = () => {
+const PdaNavigation = () => {
   const currentTime = useCurrentTime();
   return (
-    <nav className="navigation">
+    <nav className="pda-navigation">
       <ul>
-        <li className="navigation__item">
+        <li className="pda-navigation__item">
           <img src={MenuItemIconSrc} alt="soubor" />
           <Link to="/ukoly">Úkoly</Link>
         </li>
-        <li className="navigation__item navigation__item--separator">
+        <li className="pda-navigation__item pda-navigation__item--separator">
           <span></span>
         </li>
-        <li className="navigation__item">
+        <li className="pda-navigation__item">
           <img src={MenuItemIconSrc} alt="soubor" />
           <Link to="/mapy">Mapy</Link>
         </li>
-        <li className="navigation__item navigation__item--separator">
+        <li className="pda-navigation__item pda-navigation__item--separator">
           <span></span>
         </li>
-        <li className="navigation__item">
+        <li className="pda-navigation__item">
           <img src={MenuItemIconSrc} alt="soubor" />
           <Link to="/denik">Deník</Link>
         </li>
-        <li className="navigation__item navigation__item--separator">
+        <li className="pda-navigation__item pda-navigation__item--separator">
           <span></span>
         </li>
-        <li className="navigation__item">
+        <li className="pda-navigation__item">
           <img src={MenuItemIconSrc} alt="soubor" />
           <Link to="/encyklopedie">Encykolpedie</Link>
         </li>
@@ -40,4 +40,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default PdaNavigation;

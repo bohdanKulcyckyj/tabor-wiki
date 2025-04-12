@@ -1,0 +1,17 @@
+.content-viewer {
+    h4, h5, h6 {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    p {
+        font-weight: 300;
+        margin-bottom: 0.6rem;
+        text-align: justify;  
+
+        &:has(+ h4),
+        &:has(+ h5),
+        &:has(+ h6) {
+          margin-bottom: 1.2rem;
+        }
+    }
+}

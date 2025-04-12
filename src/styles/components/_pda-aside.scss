@@ -1,0 +1,25 @@
+.pda-aside {
+  display: flex;
+  flex-direction: column;
+  @extend %pda-border-radius;
+  @include pda-border($border-purple);
+  padding: 0.25rem;
+  background-color: $background-black;
+  height: 100%;
+  min-height: 0;
+
+  &__title {
+    @extend %pda-border-radius;
+    font-family: $primary-font;
+    color: $text-purple-light;
+    // font-size: 1.5rem;
+    background-color: $background-purple-light;
+    padding: 0.6rem 2rem;
+    text-align: center;
+  }
+
+  &__content {
+    max-height: 100%;
+    overflow: auto;
+  }
+}

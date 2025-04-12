@@ -1,5 +1,5 @@
 import PouchDB from 'pouchdb-browser';
-import { Entry } from '../types/entry';
+import { Entry } from '../types/entry/entry';
 
 const localDB = new PouchDB<Entry>(import.meta.env.VITE_LOCAL_DB);
 

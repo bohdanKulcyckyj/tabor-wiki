@@ -13,13 +13,17 @@
     "@legendapp/state": "^2.1.15",
     "@tailwindcss/vite": "^4.0.9",
     "crypto-js": "^4.2.0",
-    "events": "^3.3.0", 
+    "events": "^3.3.0",
+    "gsap": "^3.12.7",
+    "lodash": "^4.17.21",
     "pouchdb-browser": "^9.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "react-router": "^7.2.0",
+    "react-slugify": "^4.0.1",
     "tailwindcss": "^4.0.9",
+    "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
