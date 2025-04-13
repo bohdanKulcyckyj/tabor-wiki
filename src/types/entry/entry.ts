@@ -5,10 +5,10 @@ import { MapEntrySchema } from './map';
 import { TaskEntrySchema } from './task';
 
 export const EntrySchema = z.discriminatedUnion('entryType', [
-  ...DiaryEntrySchema.options,
-  ...EncyclopediaEntrySchema.options,
-  ...MapEntrySchema.options,
-  ...TaskEntrySchema.options,
+  DiaryEntrySchema,
+  EncyclopediaEntrySchema,
+  MapEntrySchema,
+  TaskEntrySchema,
 ]);
 export type Entry = z.infer<typeof EntrySchema>;
 export type EntryType = Entry['entryType'];

@@ -4,30 +4,35 @@ import { BlockElementSchema } from '../content';
 
 export const EncyclopediaContentSchema = z.array(BlockElementSchema);
 
-export const EncryptedEncyclopediaSchema = BaseEntrySchema.extend({
-  entryType: z.literal('encyclopedia.encrypted'),
+export const EncryptedEncyclopediaContentSchema = z.object({
   isEncrypted: z.literal(true),
   encryptedKey: z.string(),
   content: z.string(),
 });
 
-export const DecryptedEncyclopediaEntrySchema = BaseEntrySchema.extend({
-  entryType: z.literal('encyclopedia'),
+export const EncyclopediaLeafContent = z.object({
+  contentType: z.literal("entry"),
+  entry: EncyclopediaContentSchema
+})
+
+export const EncyclopediaBranchContent = z.object({
+  contentType: z.literal("children"),
+  children: z.array(z.lazy((): ZodSchema => EncyclopediaEntrySchema))
+})
+
+export const DecryptedEncyclopediaContentSchema = z.object({
   isEncrypted: z.literal(false),
-  content: z.union([EncyclopediaContentSchema, EncryptedEncyclopediaSchema, z.lazy((): ZodSchema => DecryptedEncyclopediaEntrySchema)]),
+  content: z.discriminatedUnion("contentType", [EncyclopediaBranchContent, EncyclopediaLeafContent])
 });
 
-export const EncyclopediaEntrySchema = z.discriminatedUnion('isEncrypted', [
-  DecryptedEncyclopediaEntrySchema,
-  EncryptedEncyclopediaSchema,
-]);
+export const EncyclopediaEntrySchema = BaseEntrySchema.extend({
+  entryType: z.literal('encyclopedia'),
+  container: z.discriminatedUnion('isEncrypted', [
+    EncryptedEncyclopediaContentSchema,
+    DecryptedEncyclopediaContentSchema,
+  ]),
+});
 
 export type EncyclopediaEntry = z.infer<typeof EncyclopediaEntrySchema>;
-export type EncryptedEncyclopediaEntry = z.infer<
-  typeof EncryptedEncyclopediaSchema
->;
-export type DecryptedEncyclopediaEntry = z.infer<
-  typeof DecryptedEncyclopediaEntrySchema
->;
 export type EncyclopediaContent = z.infer<typeof EncyclopediaContentSchema>;
 export type EncyclopediaEntryType = 'encyclopedia';
