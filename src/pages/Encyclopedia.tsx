@@ -11,8 +11,8 @@ const Encyclopedia = () => {
         {/* <NestedList /> */}
         <></>
       </PdaAsideBase>
-      <PdaSectionBase title={`# /${params["*"] ?? ""}`} className="">
-        <></>
+      <PdaSectionBase title={`# ${params["*"] ?? ""}`} className="">
+        <div></div>
       </PdaSectionBase>
     </div>
   );

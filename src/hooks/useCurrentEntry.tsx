@@ -13,12 +13,13 @@ const useCurrentEntry = <T extends Entry>(
     let findAmongEntries = entries;
     let currentEntry: T | undefined = undefined;
     for (const slug of entriesPath) {
-        console.log(slug);
       currentEntry = findAmongEntries.find((_entry) => _entry.slug === slug);
       if (!currentEntry) {
         break;
       }
-      findAmongEntries = (currentEntry?.content as T[]) || [];
+      if(!currentEntry.container.isEncrypted && currentEntry.container.content.contentType === "children") {
+        findAmongEntries = currentEntry.container.content.children || [];
+      }
     }
     return currentEntry;
   };

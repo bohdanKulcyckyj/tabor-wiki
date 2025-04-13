@@ -377,4 +377,36 @@ main::before {
     grid-template-rows: auto auto;
     grid-gap: 0.6rem;
   }
+}
+
+.tasks {
+  display: grid;
+  grid-template-columns: 33% calc(67% - 1rem);
+  grid-template-rows: 1fr;
+  grid-gap: 1rem;
+  height: 100%;
+  min-height: 0;
+}
+@media only screen and (max-width: 880px) {
+  .tasks {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 0.6rem;
+  }
+}
+
+.maps {
+  display: grid;
+  grid-template-columns: 33% calc(67% - 1rem);
+  grid-template-rows: 1fr;
+  grid-gap: 1rem;
+  height: 100%;
+  min-height: 0;
+}
+@media only screen and (max-width: 880px) {
+  .maps {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 0.6rem;
+  }
 }/*# sourceMappingURL=main.css.map */

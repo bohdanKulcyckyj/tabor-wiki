@@ -2,7 +2,6 @@ import { useRef, useState, useEffect, ReactNode } from 'react';
 import { Link } from 'react-router';
 import { gsap } from 'gsap';
 import { Entry } from '../types/entry/entry';
-import { isLeafEntry } from '../utils/entry';
 
 const NestedListItem = ({
   label,
@@ -77,10 +76,10 @@ const NestedList = ({ data, prefix }: { data: Entry[]; prefix: string }) => {
     (currentPath: string = '') =>
     (item: Entry): ReactNode => {
       const newPath = `/${currentPath}/${item.slug}`;
-      if (!isLeafEntry(item)) {
+      if (!item.container.isEncrypted && item.container.content.contentType === "children") {
         return (
           <NestedListItem key={item.slug} label={item.title} url={newPath}>
-            {item.content.map(itemMapper(newPath))}
+            {item.container.content.children.map(itemMapper(newPath))}
           </NestedListItem>
         );
       }

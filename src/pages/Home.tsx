@@ -1,10 +1,11 @@
+import PdaFullScreen from '../components/PdaFullScreen';
 
 const Home = () => {
-  // const entries = useEntries();
-
   return (
-    <div>
-      {/* <NestedList /> */}
+    <div className="home">
+      <PdaFullScreen>
+        <p>Archiv dostupných informací o <strong>sektoru</strong></p>
+      </PdaFullScreen>
     </div>
   );
 };
