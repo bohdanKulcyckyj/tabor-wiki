@@ -8,12 +8,14 @@ function encrypt(data: Entry, key: string): EncryptionResult {
       success: true,
       data: {
         ...data,
-        content: CryptoJS.AES.encrypt(
-          JSON.stringify(data.content),
-          key,
-        ).toString(),
-        isEncrypted: true,
-        encryptedKey: CryptoJS.AES.encrypt(JSON.stringify(key), key).toString(),
+        container: {
+          isEncrypted: true,
+          encryptedKey: CryptoJS.AES.encrypt(JSON.stringify(key), key).toString(),
+          content: CryptoJS.AES.encrypt(
+            JSON.stringify(data.container.content),
+            key,
+          ).toString(),
+        }
       },
     };
   } catch (e) {
@@ -25,14 +27,14 @@ function encrypt(data: Entry, key: string): EncryptionResult {
 }
 
 function decrypt(data: Entry, key: string): EncryptionResult {
-  if (!data.isEncrypted || !data.encryptedKey) {
+  if (!data.container.isEncrypted || !data.container.encryptedKey) {
     return {
       success: false,
       error: 'Data is not encrypted',
     };
   }
 
-  const decryptedKey = CryptoJS.AES.decrypt(data.encryptedKey, key).toString(
+  const decryptedKey = CryptoJS.AES.decrypt(data.container.encryptedKey, key).toString(
     CryptoJS.enc.Utf8,
   );
   if (decryptedKey !== key) {
@@ -43,23 +45,25 @@ function decrypt(data: Entry, key: string): EncryptionResult {
   }
 
   try {
-    if (typeof data.content !== 'string') {
+    if (typeof data.container.content !== 'string') {
       return {
         success: false,
         error: 'Invalid content format',
       };
     }
-    const bytes = CryptoJS.AES.decrypt(data.content, key);
+    const bytes = CryptoJS.AES.decrypt(data.container.content, key);
     const parsedContent = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     const decryptedEntry = {
       ...data,
-      content: parsedContent,
-      isEncrypted: false,
+      container: {
+        content: parsedContent,
+        isEncrypted: false,
+      }
     };
-    EntrySchema.parse(decryptedEntry);
+    const parsedDecryptedEntry = EntrySchema.parse(decryptedEntry);
     return {
       success: true,
-      data: decryptedEntry,
+      data: parsedDecryptedEntry,
     };
   } catch (e) {
     return {

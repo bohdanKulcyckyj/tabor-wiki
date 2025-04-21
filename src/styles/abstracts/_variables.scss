@@ -11,4 +11,5 @@ $text-purple-secondary: #6F718A;
 $primary-font: 'Ubuntu', sans-serif;
 $secondary-font: "Sura", sans-serif;
 
-$pda-height-desktop: 54vh;
+$pda-width-desktop: 1000px;
+$pda-height-desktop: calc($pda-width-desktop / 2); // 54vh;

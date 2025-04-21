@@ -1,22 +1,18 @@
-import { useState, useEffect } from "react";
+import { currentTime } from "@legendapp/state/helpers/time"
+import { use$, useObservable } from "@legendapp/state/react";
+import { observe } from "@legendapp/state";
 
 export const useCurrentTime = () => {
-  const [currentTime, setCurrentTime] = useState("");
+  const formattedCurrentTime$ = useObservable<string>("")
+  const formattedCurrentTime = use$(formattedCurrentTime$)
 
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const formattedTime = `${now.getHours().toString().padStart(2, "0")}:${now
-        .getMinutes().toString().padStart(2, "0")} ${now.getDate().toString().padStart(2, "0")}.${(
-        now.getMonth() + 1).toString().padStart(2, "0")}.${now.getFullYear()}`;
-      setCurrentTime(formattedTime);
-    };
+  observe(() => {
+    const now = currentTime.get()
+    const formattedTime = `${now.getHours().toString().padStart(2, "0")}:${now
+      .getMinutes().toString().padStart(2, "0")} ${now.getDate().toString().padStart(2, "0")}.${(
+      now.getMonth() + 1).toString().padStart(2, "0")}.${now.getFullYear()}`;
+      formattedCurrentTime$.set(formattedTime);
+  })
 
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return currentTime;
+  return formattedCurrentTime;
 };

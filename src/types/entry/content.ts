@@ -34,7 +34,7 @@ export const BlockElementSchema = z.discriminatedUnion('type', [
   }),
   z.object({
     type: z.literal('heading'),
-    level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+    level: z.union([z.literal(4), z.literal(5), z.literal(6)]),
     children: z.array(InlineElementSchema),
   }),
   z.object({

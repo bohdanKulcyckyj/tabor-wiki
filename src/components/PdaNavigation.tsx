@@ -4,6 +4,7 @@ import { useCurrentTime } from '../hooks/useCurrentTime';
 
 const PdaNavigation = () => {
   const currentTime = useCurrentTime();
+
   return (
     <nav className="pda-navigation">
       <ul>

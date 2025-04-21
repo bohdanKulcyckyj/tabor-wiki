@@ -1,10 +1,10 @@
 import { observable } from '@legendapp/state';
-import { Entry } from '../types/entry/entry';
+import { Entry, EntryType } from '../types/entry/entry';
 
 export const store = observable<{
-  entries: Entry[];
+  entries: { data: Entry[]; entryType: EntryType | 'all' };
   currentEntry: Entry | null;
 }>({
-  entries: [],
+  entries: { data: [], entryType: 'all' },
   currentEntry: null,
 });

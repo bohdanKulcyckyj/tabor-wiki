@@ -1,29 +1,47 @@
+import { useEffect, useState } from 'react';
 import { Entry, EntryType } from '../types/entry/entry';
 import useEntries from './useEntries';
 
-const useCurrentEntry = <T extends Entry>(
-  entryType: EntryType,
-  pathname: string,
-): T | undefined => {
-  const entries = useEntries<T>(entryType);
-  const entriesPath = pathname.split('/').slice(2);
-  console.log(entries);
-  console.log(entriesPath);
-  const findEntry = () => {
+const findCurrentEntryFactory = <T extends Entry = Entry>( entries: T[] ) => {
+  return (slugPath?: string) => {
+    console.log(slugPath)
+    console.log(entries)
+    console.log("NIIIIIIIIIIIIIIIIC SE NEDEJEEEEEEEEEEEE")
+    if (!slugPath) return undefined;
+    const entriesPath = slugPath.split('/').slice(2);
     let findAmongEntries = entries;
-    let currentEntry: T | undefined = undefined;
+    let result: T | undefined = undefined;
     for (const slug of entriesPath) {
-      currentEntry = findAmongEntries.find((_entry) => _entry.slug === slug);
-      if (!currentEntry) {
+      result = findAmongEntries.find((_entry) => _entry.slug === slug);
+      if (!result) {
         break;
       }
-      if(!currentEntry.container.isEncrypted && currentEntry.container.content.contentType === "children") {
-        findAmongEntries = currentEntry.container.content.children || [];
+      if (
+        !result.container.isEncrypted &&
+        result.container.content.contentType === 'children'
+      ) {
+        findAmongEntries = result.container.content.children || [];
       }
     }
-    return currentEntry;
+
+    console.log(result)
+    return result;
   };
-  return findEntry();
+}
+
+const useCurrentEntry = <T extends Entry = Entry>(
+  pathname?: string,
+  entryType: EntryType | "all" = "all",
+) => {
+  const { data: entries } = useEntries<T>(entryType);
+  const [currentEntry, setCurrentEntry] = useState<T | undefined>(undefined);
+
+  useEffect(() => {
+    const findCurrentEntry = findCurrentEntryFactory<T>(entries)
+    setCurrentEntry(findCurrentEntry(pathname))
+  }, [entries, pathname])
+
+  return { currentEntry, handleFindCurrentEntry: findCurrentEntryFactory<T>(entries) };
 };
 
 export default useCurrentEntry;

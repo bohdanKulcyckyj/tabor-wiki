@@ -53,45 +53,52 @@ export type DiaryEntry = z.infer<typeof DiaryEntrySchema>;
 export type DiaryContent = z.infer<typeof DiaryContentSchema>;
 export type DiaryEntryType = 'diary';
 
+export function isDiaryEntry(entry: unknown): entry is DiaryEntry {
+  const parsedResult = DiaryEntrySchema.safeParse(entry)
+  return parsedResult.success
+}
+
 // Check if a DiaryEntry is encrypted
 export function isEncryptedDiaryEntry(
-  entry: DiaryEntry,
+  entry: unknown,
 ): entry is DiaryEntry & {
   container: z.infer<typeof EncryptedDiaryContentSchema>;
 } {
-  return entry.container.isEncrypted === true;
+  return isDiaryEntry(entry) && entry.container.isEncrypted === true;
 }
 
 // Check if a DiaryEntry is decrypted
 export function isDecryptedDiaryEntry(
-  entry: DiaryEntry,
+  entry: unknown,
 ): entry is DiaryEntry & {
   container: z.infer<typeof DecryptedDiaryContentSchema>;
 } {
-  return entry.container.isEncrypted === false;
+  return isDiaryEntry(entry) && entry.container.isEncrypted === false;
 }
 
 // Check if a DiaryEntry is a leaf entry
-export function isDiaryLeafEntry(entry: DiaryEntry): entry is DiaryEntry & {
+export function isDiaryLeafEntry(entry: unknown): entry is DiaryEntry & {
   container: {
     isEncrypted: false;
     content: DiaryLeaf;
   };
 } {
   return (
+    isDiaryEntry(entry) && 
     entry.container.isEncrypted === false &&
     entry.container.content.contentType === 'entry'
   );
 }
 
 // Check if a DiaryEntry is a branch entry
-export function isDiaryBranchEntry(entry: DiaryEntry): entry is DiaryEntry & {
+export function isDiaryBranchEntry(entry: unknown): entry is DiaryEntry & {
   container: {
     isEncrypted: false;
     content: DiaryBranch;
   };
 } {
   return (
+    isDiaryEntry(entry) && 
     entry.container.isEncrypted === false &&
     entry.container.content.contentType === 'children'
   );
