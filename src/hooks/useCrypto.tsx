@@ -96,38 +96,34 @@ const useCrypto = () => {
 
   const tryDecrypt = (encryptedEntry: Entry) => {
     for (const key of keys) {
-      try {
-        const res = encryption.decrypt(encryptedEntry, key);
-        if (res.success) {
-          const entryToUpdate = findParentEntry(data, encryptedEntry._id);
-          if (entryToUpdate) {
-            const updatedEntry = updateNestedEntryById(
-              entryToUpdate,
-              res.data._id,
-              (param) => ({
-                ...param,
-                ...res.data,
-              }),
-            );
-            localDB.put(updatedEntry).then((res) => {
-              if (res.ok) {
-                store.entries.set((prev) => ({
-                  ...prev,
-                  data: [
-                    ...prev.data.filter(
-                      (entry) => entry._id !== updatedEntry._id,
-                    ),
-                    updatedEntry,
-                  ],
-                }));
-                store.currentEntry.set(() => updatedEntry);
-              }
-            });
-          }
-          return res.data;
+      const res = encryption.decrypt(encryptedEntry, key);
+      if (res.success) {
+        const entryToUpdate = findParentEntry(data, encryptedEntry._id);
+        if (entryToUpdate) {
+          const updatedEntry = updateNestedEntryById(
+            entryToUpdate,
+            res.data._id,
+            (param) => ({
+              ...param,
+              ...res.data,
+            }),
+          );
+          localDB.put(updatedEntry).then((res) => {
+            if (res.ok) {
+              store.entries.set((prev) => ({
+                ...prev,
+                data: [
+                  ...prev.data.filter(
+                    (entry) => entry._id !== updatedEntry._id,
+                  ),
+                  updatedEntry,
+                ],
+              }));
+              store.currentEntry.set(() => updatedEntry);
+            }
+          });
         }
-      } catch (e) {
-        console.error(e);
+        return res.data;
       }
     }
     return undefined;

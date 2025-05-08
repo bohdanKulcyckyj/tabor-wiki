@@ -16,7 +16,6 @@ const Dairy = () => {
   const location = useLocation();
   const { currentEntry } = useCurrentEntry<DiaryEntry>(location.pathname, 'diary');
 
-  console.log(currentEntry);
   if (!currentEntry || !isDiaryLeafEntry(currentEntry)) {
     return (
       <div className="diary">

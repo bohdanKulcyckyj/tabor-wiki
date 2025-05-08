@@ -11,9 +11,14 @@ type TaskObjective = {
   checked: boolean;
 };
 
-const getCheckedObjectivesFromLocalStorage = (uniqueId: string): string[] => {
+const toStorageKey = (uniqueId: string) => {
+  const key = `${uniqueId}-objectives`;
+  return key;
+}
+
+const getCheckedObjectivesFromLocalStorage = (key: string): string[] => {
   try {
-    const objectivesOutput = localStorage.getItem(uniqueId);
+    const objectivesOutput = localStorage.getItem(key);
     if (objectivesOutput) {
       const parsedObjectives = z
         .array(z.string())
@@ -39,15 +44,15 @@ const CheckList = ({ data, uniqueId }: CheckListProps) => {
   });
 
   const handleToggleObjective = (obj: TaskObjective) => {
-    const checkedObjectives = getCheckedObjectivesFromLocalStorage(uniqueId);
+    const checkedObjectives = getCheckedObjectivesFromLocalStorage(toStorageKey(uniqueId));
     if (checkedObjectives.includes(obj.label)) {
       const newCheckedObjectives = checkedObjectives.filter(
         (label) => label !== obj.label,
       );
-      localStorage.setItem(uniqueId, JSON.stringify(newCheckedObjectives));
+      localStorage.setItem(toStorageKey(uniqueId), JSON.stringify(newCheckedObjectives));
     } else {
       const newCheckedObjectives = [...checkedObjectives, obj.label];
-      localStorage.setItem(uniqueId, JSON.stringify(newCheckedObjectives));
+      localStorage.setItem(toStorageKey(uniqueId), JSON.stringify(newCheckedObjectives));
     }
 
     objectives$.set((prev) => {

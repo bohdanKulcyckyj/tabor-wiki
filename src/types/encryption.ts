@@ -1,13 +1,19 @@
-import { Entry } from './entry/entry';
+import { z } from 'zod';
+import { EntrySchema } from './entry/entry';
 
-type EncryptionSuccess = {
-  success: true;
-  data: Entry;
-};
+const encryptionSuccessSchema = z.object({
+  success: z.literal(true),
+  data: EntrySchema,
+})
 
-type EncryptionFail = {
-  success: false;
-  error: string;
-};
+const encryptionFailSchema = z.object({
+  success: z.literal(false),
+  error: z.string(),
+});
 
-export type EncryptionResult = EncryptionSuccess | EncryptionFail;
+export const encryptionResultSchema = z.discriminatedUnion('success', [
+  encryptionSuccessSchema,
+  encryptionFailSchema,
+]);
+
+export type EncryptionResult = z.infer<typeof encryptionResultSchema>;
