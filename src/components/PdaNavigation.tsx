@@ -1,9 +1,7 @@
 import { Link } from 'react-router';
 import MenuItemIconSrc from '../assets/menu-icon.svg';
-import { useCurrentTime } from '../hooks/useCurrentTime';
 
 const PdaNavigation = () => {
-  const currentTime = useCurrentTime();
 
   return (
     <nav className="pda-navigation">
@@ -35,7 +33,7 @@ const PdaNavigation = () => {
         </li>
       </ul>
       <div>
-        <p>{currentTime}</p>
+        <Link to="/pridat-klic">Přidat klíč</Link>
       </div>
     </nav>
   );

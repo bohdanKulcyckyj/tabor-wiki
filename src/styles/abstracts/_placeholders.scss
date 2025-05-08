@@ -4,3 +4,10 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 0px;
 }
+
+%pda-page-layout {
+    display: grid;
+    grid-template-columns: 30% calc(100% - 30% - 1rem);
+    grid-template-rows: 1fr;
+    grid-gap: 1rem;
+}

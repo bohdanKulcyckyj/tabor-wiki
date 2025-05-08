@@ -25,7 +25,7 @@ export const useEntries = <T extends Entry = Entry>(
         store.entries.set({ data: allEntries, entryType: entryType });
       });
     }
-  }, []);
+  }, [currentEntryType, data.length, entryType]);
 
   return {
     entryType: currentEntryType,

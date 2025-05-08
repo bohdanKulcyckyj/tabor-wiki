@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Entry, EntryType } from '../types/entry/entry';
 import { use$ } from '@legendapp/state/react';
 import { store } from '../state/store';
@@ -31,7 +31,6 @@ const useCurrentEntry = <T extends Entry = Entry>(
   pathname?: string,
   entryType: EntryType | "all" = "all",
 ) => {
-  const { data: entries } = use$(store.entries);
   const currentEntry = use$(store.currentEntry);
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const useCurrentEntry = <T extends Entry = Entry>(
       const findCurrentEntry = findCurrentEntryFactory<T>(allEntries as T[]);
       store.currentEntry.set(findCurrentEntry(pathname))
     });
-  }, [entries, entryType, pathname])
+  }, [entryType, pathname])
 
   return { currentEntry };
 };
