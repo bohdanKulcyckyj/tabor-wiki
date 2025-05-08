@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Sura:wght@400;700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap");
-.encryption-key-form, .pda-fullscreen, .pda-section__title, .pda-section, .pda-aside__title, .pda-aside, .pda-navigation {
+.maps__item img, .encryption-key-form__button, .encryption-key-form input[type=text], .encryption-key-form, .pda-fullscreen, .pda-section__title, .pda-section, .pda-aside__title, .pda-aside, .pda-navigation {
   border-top-left-radius: 0px;
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -19,7 +19,7 @@
   background: #1f2024;
 }
 *::-webkit-scrollbar-thumb {
-  background: #3D3C4A;
+  background: #3d3c4a;
 }
 *::-webkit-scrollbar-thumb:hover {
   background: #494758;
@@ -58,7 +58,7 @@ h6 {
 }
 
 p {
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Sura", sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
@@ -107,18 +107,18 @@ main::before {
 }
 
 .text-yellow {
-  color: #FF9B00;
+  color: #ff9b00;
 }
 
 .pda-navigation {
-  border: 2px solid #6F718A;
+  border: 2px solid #6f718a;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
   padding: 0.5rem 1rem;
-  background-color: #3D3C4A;
-  color: #B0B2C7;
+  background-color: #3d3c4a;
+  color: #b0b2c7;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -129,7 +129,7 @@ main::before {
 }
 .pda-navigation p {
   font-family: "Ubuntu Sans", sans-serif;
-  color: #B0B2C7;
+  color: #b0b2c7;
   font-weight: 400;
 }
 .pda-navigation ul {
@@ -144,7 +144,7 @@ main::before {
   position: relative;
 }
 .pda-navigation__item * {
-  color: #B0B2C7;
+  color: #b0b2c7;
   font-family: "Ubuntu Sans", sans-serif;
   text-transform: none;
   text-decoration: none;
@@ -168,7 +168,7 @@ main::before {
   right: 50%;
   width: 2px;
   height: 2px;
-  color: #6F718A;
+  color: #6f718a;
   transition: width 0.3s;
   font-size: 1.5rem;
   letter-spacing: 0;
@@ -180,7 +180,7 @@ main::before {
     flex-direction: column;
     gap: 2rem;
     padding: 0.5rem 0.5rem;
-    background-color: #3D3C4A;
+    background-color: #3d3c4a;
     font-size: 0.9rem;
   }
   .pda-navigation ul {
@@ -226,7 +226,7 @@ main::before {
 .pda-aside {
   display: flex;
   flex-direction: column;
-  border: 2px solid #6F718A;
+  border: 2px solid #6f718a;
   padding: 0.25rem;
   background-color: #131416;
   height: 100%;
@@ -234,7 +234,7 @@ main::before {
 }
 .pda-aside__title {
   font-family: "Ubuntu", sans-serif;
-  color: #B0B2C7;
+  color: #b0b2c7;
   background-color: #484759;
   padding: 0.6rem 2rem;
   text-align: center;
@@ -247,10 +247,10 @@ main::before {
 .pda-section {
   display: flex;
   flex-direction: column;
-  border: 2px solid #6F718A;
+  border: 2px solid #6f718a;
   padding: 0.25rem;
   background-color: #131416;
-  color: #FFFFFF;
+  color: #ffffff;
   height: 100%;
   min-height: 0;
 }
@@ -258,7 +258,7 @@ main::before {
   font-family: "Ubuntu", sans-serif;
   background-color: #484759;
   padding: 0.5rem 1.5rem;
-  color: #B0B2C7;
+  color: #b0b2c7;
 }
 .pda-section__content {
   display: flex;
@@ -269,7 +269,7 @@ main::before {
 }
 
 .pda-fullscreen {
-  border: 2px solid #6F718A;
+  border: 2px solid #6f718a;
   padding: 0.25rem;
   background-color: #131416;
   width: 100%;
@@ -285,7 +285,7 @@ main::before {
 }
 .nested-list__item {
   list-style-type: none;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 0.4rem;
   font-size: 0.9rem;
 }
@@ -338,18 +338,79 @@ main::before {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid #6F718A;
+  gap: 1rem;
+  border: 2px solid #6f718a;
   padding: 0.25rem;
   background-color: #131416;
-  color: #FFFFFF;
+  color: #ffffff;
   height: 100%;
   min-height: 40vh;
-  background: rgba(176, 178, 199, 0.55);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 8px 10px 0 rgba(12, 15, 54, 0.37);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.encryption-key-form input[type=text] {
+  border: 2px solid #6f718a;
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: transparent;
+  box-shadow: none;
+  color: #ffffff;
+}
+.encryption-key-form__button {
+  border: 2px solid #6f718a;
+  background-color: #3d3c4a;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: #b0b2c7;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.01rem;
+  margin-bottom: 1rem;
+}
+.checklist__item {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.5rem 1rem 0.5rem 0;
+  border-radius: 0.5rem;
+}
+.checklist__item input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #00ff00;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+}
+.checklist__item input[type=checkbox]:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  background-color: #00ff00;
+  border-radius: 50%;
+}
+.checklist__item label {
+  color: #aaa;
+  cursor: pointer;
+}
+.checklist__item input[type=checkbox]:checked + label {
+  color: #ccc;
 }
 
 .diary {
@@ -379,7 +440,7 @@ main::before {
   height: auto;
 }
 .diary__bio__image img {
-  border: 2px solid #6F718A;
+  border: 2px solid #6f718a;
   border-radius: 0px 5px;
   width: 100%;
   object-fit: cover;
@@ -396,7 +457,7 @@ main::before {
   gap: 0.6rem;
 }
 .diary__bio__text li *:nth-child(1) {
-  color: #B0B2C7;
+  color: #b0b2c7;
 }
 @media only screen and (max-width: 560px) {
   .diary__bio {
@@ -462,4 +523,19 @@ main::before {
     grid-template-rows: auto auto;
     grid-gap: 0.6rem;
   }
+}
+.maps__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 0;
+}
+.maps__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  text-align: center;
+  border: 2px solid #6f718a;
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

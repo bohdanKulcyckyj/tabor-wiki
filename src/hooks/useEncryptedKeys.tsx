@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { use$ } from '@legendapp/state/react';
+import { useEffect } from 'react';
 import { z } from 'zod';
+import { store } from '../state/store';
 
 const EncryptionKeysSchema = z.array(z.string());
 
@@ -23,14 +25,21 @@ const storeKeys = (keys: string[]): void => {
 };
 
 const useEncryptedKeys = () => {
-  const [keys, setKeys] = useState(() => getKeys());
+  const keys = use$(store.keys);
+
+  useEffect(() => {
+    const stored = getKeys();
+    if (stored.length > 0) {
+      store.keys.set(stored);
+    }
+  }, [])
 
   const addKey = (newKey: string) => {
     storeKeys([...keys, newKey]);
-    setKeys((_prev) => [..._prev, newKey]);
+    store.keys.set((_prev) => [..._prev, newKey]);
   };
 
-  return { keys, addKey };
+  return { keys: keys, addKey };
 };
 
 export default useEncryptedKeys;

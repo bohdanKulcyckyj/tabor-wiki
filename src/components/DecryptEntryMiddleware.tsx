@@ -11,12 +11,11 @@ const DecryptEntryMiddleware = ({ children }: { children: ReactNode }) => {
   const { tryDecrypt } = useCrypto();
   const { keys } = useEncryptedKeys();
 
-  // useEffect(() => {
-  //   if (currentEntry?.container?.isEncrypted) {
-  //     const decryptedEntry = tryDecrypt(currentEntry);
-  //     console.log(decryptedEntry);
-  //   }
-  // }, [currentEntry, tryDecrypt, keys]);
+  useEffect(() => {
+    if (currentEntry?.container?.isEncrypted) {
+      tryDecrypt(currentEntry);
+    }
+  }, [currentEntry, tryDecrypt, keys]);
 
   if (currentEntry?.container?.isEncrypted) {
     return <EncryptionKeyForm />

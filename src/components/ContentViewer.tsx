@@ -62,21 +62,6 @@ const ContentViewer = ({ content }: { content: BlockElement[] }) => {
         );
       }
 
-      case 'quote':
-        return (
-          <blockquote
-            key={index}
-            className="border-l-4 border-gray-300 pl-4 italic text-gray-700 mb-4"
-          >
-            {block.children.map(renderInline)}
-            {block.author && (
-              <footer className="mt-2 text-sm text-gray-500">
-                — {block.author}
-              </footer>
-            )}
-          </blockquote>
-        );
-
       case 'image': {
         const src =
           block.subtype === 'base64'

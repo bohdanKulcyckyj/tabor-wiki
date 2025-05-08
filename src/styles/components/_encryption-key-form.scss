@@ -1,8 +1,11 @@
+@use 'sass:math';
+
 .encryption-key-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
   @extend %pda-border-radius;
   @include pda-border($border-purple);
   padding: 0.25rem;
@@ -10,10 +13,31 @@
   color: $text-white;
   height: 100%;
   min-height: 40vh;
-  background: rgba(176, 178, 199, 0.55);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 8px 10px 0 rgba(12, 15, 54, 0.37);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  input[type='text'] {
+    @extend %pda-border-radius;
+    @include pda-border($border-purple);
+    outline: none;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background: transparent;
+    box-shadow: none;
+    color: $text-white;
+  }
+
+  &__button {
+    @extend %pda-border-radius;
+    @include pda-border($border-purple);
+    background-color: $background-purple-dark;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: $text-purple-light;
+  }
 }

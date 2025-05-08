@@ -1,8 +1,14 @@
 import { z, ZodSchema } from 'zod';
 import { BaseEntrySchema } from '../base';
-import { BlockElementSchema } from '../content';
+import { BlockElementSchema, imageSchema } from '../content';
 
-export const TaskContentSchema = z.array(BlockElementSchema);
+export const TaskContentSchema = z.object({
+  objectives: z.array(z.string()),
+  map: imageSchema,
+  start: z.string().datetime(),
+  end: z.string().datetime(),
+  additionalContent: z.array(BlockElementSchema).optional(),
+});
 
 export const TaskLeafContent = z.object({
   contentType: z.literal("entry"),

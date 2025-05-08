@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Entry, EntryType } from '../types/entry/entry';
-import useEntries from './useEntries';
+import { use$ } from '@legendapp/state/react';
+import { store } from '../state/store';
+import localDB from '../db/db';
 
 const findCurrentEntryFactory = <T extends Entry = Entry>( entries: T[] ) => {
   return (slugPath?: string) => {
-    console.log(slugPath)
-    console.log(entries)
-    console.log("NIIIIIIIIIIIIIIIIC SE NEDEJEEEEEEEEEEEE")
     if (!slugPath) return undefined;
     const entriesPath = slugPath.split('/').slice(2);
     let findAmongEntries = entries;
@@ -24,7 +23,6 @@ const findCurrentEntryFactory = <T extends Entry = Entry>( entries: T[] ) => {
       }
     }
 
-    console.log(result)
     return result;
   };
 }
@@ -33,15 +31,24 @@ const useCurrentEntry = <T extends Entry = Entry>(
   pathname?: string,
   entryType: EntryType | "all" = "all",
 ) => {
-  const { data: entries } = useEntries<T>(entryType);
-  const [currentEntry, setCurrentEntry] = useState<T | undefined>(undefined);
+  const { data: entries } = use$(store.entries);
+  const currentEntry = use$(store.currentEntry);
 
   useEffect(() => {
-    const findCurrentEntry = findCurrentEntryFactory<T>(entries)
-    setCurrentEntry(findCurrentEntry(pathname))
-  }, [entries, pathname])
+    localDB.allDocs({ include_docs: true }).then((result) => {
+      let allEntries = result.rows.map((row) => row.doc!);
+      if(entryType !== 'all') {
+        allEntries = allEntries.filter(
+          (entry): entry is T => entry.entryType === entryType,
+        );
+      }
 
-  return { currentEntry, handleFindCurrentEntry: findCurrentEntryFactory<T>(entries) };
+      const findCurrentEntry = findCurrentEntryFactory<T>(allEntries as T[]);
+      store.currentEntry.set(findCurrentEntry(pathname))
+    });
+  }, [entries, entryType, pathname])
+
+  return { currentEntry };
 };
 
 export default useCurrentEntry;

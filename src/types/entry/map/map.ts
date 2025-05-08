@@ -1,8 +1,10 @@
 import { z, ZodSchema } from 'zod';
 import { BaseEntrySchema } from '../base';
-import { BlockElementSchema } from '../content';
+import { imageSchema } from '../content';
 
-export const MapContentSchema = z.array(BlockElementSchema);
+export const MapContentSchema = z.object({
+  map: imageSchema
+});
 
 export const MapLeafContent = z.object({
   contentType: z.literal("entry"),

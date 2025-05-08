@@ -6,10 +6,12 @@ import { Entry } from '../types/entry/entry';
 const NestedListItem = ({
   label,
   url,
+  isLocked = false,
   children,
 }: {
   label: string;
   url: string;
+  isLocked: boolean;
   children?: ReactNode;
 }) => {
   const contentRef = useRef<HTMLUListElement>(null);
@@ -48,6 +50,18 @@ const NestedListItem = ({
     }
   };
 
+  const renderLabel = () => {
+    if(isLocked) {
+      return `🔒 ${label}`
+    }
+
+    if (children) {
+      return `${active ? '- ' : '+ '}${label}`;
+    }
+
+    return label
+  }
+
   return (
     <li className="nested-list__item">
       <div
@@ -59,7 +73,7 @@ const NestedListItem = ({
         }}
       >
         <Link to={url}>
-          {`${children ? (active ? '- ' : '+ ') : ''}` + label}
+          {renderLabel()}
         </Link>
       </div>
       {children && (
@@ -78,14 +92,14 @@ const NestedList = ({ data, prefix }: { data: Entry[]; prefix: string }) => {
       const newPath = `/${currentPath}/${item.slug}`;
       if (!item.container.isEncrypted && item.container.content.contentType === "children") {
         return (
-          <NestedListItem key={item.slug} label={item.title} url={newPath}>
+          <NestedListItem key={item.slug} label={item.title} isLocked={item.container.isEncrypted} url={newPath}>
             {item.container.content.children.map(itemMapper(newPath))}
           </NestedListItem>
         );
       }
 
       return (
-        <NestedListItem key={item.slug} label={item.title} url={newPath} />
+        <NestedListItem key={item.slug} label={item.title} isLocked={item.container.isEncrypted} url={newPath} />
       );
     };
 

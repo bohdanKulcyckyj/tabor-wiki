@@ -2,7 +2,6 @@ import { useLocation } from 'react-router';
 import NestedList from '../components/NestedList';
 import PdaAsideBase from '../components/PdaAside';
 import PdaSectionBase from '../components/PdaSection';
-import useEntries from '../hooks/useEntries';
 import useCurrentEntry from '../hooks/useCurrentEntry';
 import {
   DiaryEntry,
@@ -10,15 +9,15 @@ import {
 } from '../types/entry/diary';
 import ContentViewer from '../components/ContentViewer';
 import DecryptEntryMiddleware from '../components/DecryptEntryMiddleware';
+import useEntries from '../hooks/useEntries';
 
 const Dairy = () => {
-  const { data: entries }  = useEntries<DiaryEntry>('diary');
+  const { data: entries } = useEntries<DiaryEntry>('diary');
   const location = useLocation();
   const { currentEntry } = useCurrentEntry<DiaryEntry>(location.pathname, 'diary');
 
   console.log(currentEntry);
   if (!currentEntry || !isDiaryLeafEntry(currentEntry)) {
-    console.log(!currentEntry);
     return (
       <div className="diary">
         <PdaAsideBase title="Deník">
@@ -86,3 +85,4 @@ const Dairy = () => {
 };
 
 export default Dairy;
+

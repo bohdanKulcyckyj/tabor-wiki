@@ -27,29 +27,25 @@ export const InlineElementSchema = z.discriminatedUnion('type', [
   }),
 ]);
 
-export const BlockElementSchema = z.discriminatedUnion('type', [
-  z.object({
-    type: z.literal('paragraph'),
-    children: z.array(InlineElementSchema),
-  }),
-  z.object({
-    type: z.literal('heading'),
-    level: z.union([z.literal(4), z.literal(5), z.literal(6)]),
-    children: z.array(InlineElementSchema),
-  }),
-  z.object({
-    type: z.literal('quote'),
-    children: z.array(InlineElementSchema),
-    author: z.string().optional(),
-  }),
-  z.object({
-    type: z.literal('image'),
-    subtype: z.enum(['url', 'base64']),
-    source: z.string(),
-    alt: z.string().optional(),
-    caption: z.string().optional(),
-  }),
-]);
+export const paragraphSchema = z.object({
+  type: z.literal('paragraph'),
+  children: z.array(InlineElementSchema),
+});
 
+export const headingSchema = z.object({
+  type: z.literal('heading'),
+  level: z.union([z.literal(4), z.literal(5), z.literal(6)]),
+  children: z.array(InlineElementSchema),
+});
+
+export const imageSchema = z.object({
+  type: z.literal('image'),
+  subtype: z.enum(['url', 'base64']),
+  source: z.string(),
+  alt: z.string().optional(),
+  caption: z.string().optional(),
+});
+
+export const BlockElementSchema = z.discriminatedUnion('type', [paragraphSchema, headingSchema, imageSchema]);
 export type BlockElement = z.infer<typeof BlockElementSchema>;
 export type InlineElement = z.infer<typeof InlineElementSchema>;
