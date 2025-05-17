@@ -1,8 +1,9 @@
 import { z } from 'zod';
 
 export const BaseEntrySchema = z.object({
-  _id: z.string(),
-  _rev: z.string(),
+  id: z.string(),
+  _id: z.string().optional(),
+  _rev: z.string().optional(),
   slug: z.string(),
   title: z.string(),
   createdAt: z.string().datetime().optional(),

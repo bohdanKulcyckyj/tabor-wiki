@@ -58,7 +58,7 @@ const Tasks = () => {
           </p>
 
           <CheckList
-            uniqueId={currentEntry._id}
+            uniqueId={currentEntry.id}
             data={currentEntry.container.content.entry.objectives}
           />
 

@@ -1,4 +1,4 @@
-import { Entry } from '../types/entry/entry';
+import { Entry, EntrySchema } from '../types/entry/entry';
 import useEncryptedKeys from './useEncryptedKeys';
 import { encryption } from '../utils/encryption';
 import { use$ } from '@legendapp/state/react';
@@ -8,7 +8,7 @@ import localDB from '../db/db';
 function findParentEntry(entries: Entry[], childId: string): Entry | undefined {
   const innerFind = (children: Entry[]): Entry | undefined => {
     for (const childEntry of children) {
-      if (childEntry._id === childId) {
+      if (childEntry.id === childId) {
         return childEntry;
       }
       if (childEntry.container.isEncrypted) {
@@ -27,7 +27,7 @@ function findParentEntry(entries: Entry[], childId: string): Entry | undefined {
   };
 
   for (const entry of entries) {
-    if (entry._id === childId) {
+    if (entry.id === childId) {
       return entry;
     }
     if (entry.container.isEncrypted) {
@@ -39,7 +39,7 @@ function findParentEntry(entries: Entry[], childId: string): Entry | undefined {
     ) {
       const found = innerFind(entry.container.content.children);
       if (found) {
-        return found;
+        return entry;
       }
     }
   }
@@ -51,7 +51,7 @@ function updateNestedEntryById<T extends Entry>(
   updateFn: (entry: T) => T,
 ): T {
   // If this is the target, apply the update
-  if (obj._id === targetId) {
+  if (obj.id === targetId) {
     return updateFn(obj);
   }
   if (
@@ -96,34 +96,39 @@ const useCrypto = () => {
 
   const tryDecrypt = (encryptedEntry: Entry) => {
     for (const key of keys) {
-      const res = encryption.decrypt(encryptedEntry, key);
-      if (res.success) {
-        const entryToUpdate = findParentEntry(data, encryptedEntry._id);
+      const decryptionResult = encryption.decrypt(encryptedEntry, key);
+      if (decryptionResult.success) {
+        const entryToUpdate = findParentEntry(data, encryptedEntry.id);
+        console.log('entryToUpdate', entryToUpdate);
         if (entryToUpdate) {
           const updatedEntry = updateNestedEntryById(
             entryToUpdate,
-            res.data._id,
+            decryptionResult.data.id,
             (param) => ({
               ...param,
-              ...res.data,
+              ...decryptionResult.data,
             }),
           );
-          localDB.put(updatedEntry).then((res) => {
-            if (res.ok) {
-              store.entries.set((prev) => ({
-                ...prev,
-                data: [
-                  ...prev.data.filter(
-                    (entry) => entry._id !== updatedEntry._id,
-                  ),
-                  updatedEntry,
-                ],
-              }));
-              store.currentEntry.set(() => updatedEntry);
-            }
-          });
+
+          localDB
+            .put({...updatedEntry, updatedAt: new Date().toISOString()}, { force: true })
+            .then((res) => {
+              if (res.ok) {
+                store.entries.set((prev) => ({
+                  ...prev,
+                  data: [
+                    ...prev.data.filter(
+                      (entry) => entry.id !== updatedEntry.id,
+                    ),
+                    updatedEntry,
+                  ],
+                }));
+                store.currentEntry.set(() => decryptionResult.data);
+              }
+            })
+            .catch((err) => console.log(err));
         }
-        return res.data;
+        return decryptionResult.data;
       }
     }
     return undefined;

@@ -33,7 +33,7 @@ const PdaNavigation = () => {
         </li>
       </ul>
       <div>
-        <Link to="/pridat-klic">Přidat klíč</Link>
+        <Link className='pda-navigation__link' to="/pridat-klic">Přidat klíč</Link>
       </div>
     </nav>
   );

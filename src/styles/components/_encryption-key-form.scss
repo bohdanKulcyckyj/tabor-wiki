@@ -39,5 +39,9 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     color: $text-purple-light;
+
+    &:hover {
+      background-color: #4d4b64;
+    }
   }
 }

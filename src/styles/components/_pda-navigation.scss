@@ -22,7 +22,7 @@
     color: $text-purple-light;
     font-weight: 400;
   }
-  
+
   ul {
     display: flex;
     justify-content: space-between;
@@ -43,16 +43,16 @@
     }
 
     &--separator {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        align-self: stretch;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      align-self: stretch;
     }
 
     &--separator span {
-        display: block;
-        height: 100%;
+      display: block;
+      height: 100%;
     }
     &--separator span::after {
       content: '//';
@@ -90,5 +90,12 @@
         display: none;
       }
     }
+  }
+
+  &__link {
+    color: $text-purple-light;
+    font-family: $font-primary;
+    text-transform: none;
+    text-decoration: none;
   }
 }

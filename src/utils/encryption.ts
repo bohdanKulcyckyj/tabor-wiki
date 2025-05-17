@@ -35,14 +35,14 @@ const toStorageKey = (id: string, key: string) => {
 
 function decrypt(data: Entry, key: string): EncryptionResult {
   try {
-    const cachedResult = sessionStorage.getItem(toStorageKey(data._id, key));
+    const cachedResult = sessionStorage.getItem(toStorageKey(data.id, key));
     if (cachedResult) {
       console.log('cached result: ' + cachedResult);
       return encryptionResultSchema.parse(JSON.parse(cachedResult));
     }
   } catch (e) {
     console.error(e);
-    sessionStorage.removeItemItem(toStorageKey(data._id, key));
+    sessionStorage.removeItemItem(toStorageKey(data.id, key));
   }
 
   if (!data.container.isEncrypted || !data.container.encryptedKey) {
@@ -62,7 +62,10 @@ function decrypt(data: Entry, key: string): EncryptionResult {
         success: false,
         error: 'Invalid key',
       };
-      sessionStorage.setItem(toStorageKey(data._id, key), JSON.stringify(failedResponse));
+      sessionStorage.setItem(
+        toStorageKey(data.id, key),
+        JSON.stringify(failedResponse),
+      );
       return failedResponse;
     }
 
@@ -87,7 +90,7 @@ function decrypt(data: Entry, key: string): EncryptionResult {
       data: parsedDecryptedEntry,
     };
     sessionStorage.setItem(
-      toStorageKey(data._id, key),
+      toStorageKey(data.id, key),
       JSON.stringify(response),
     );
     return response;
@@ -97,7 +100,7 @@ function decrypt(data: Entry, key: string): EncryptionResult {
       error: (e as Error)?.message ?? 'Decryption failed',
     };
     sessionStorage.setItem(
-      toStorageKey(data._id, key),
+      toStorageKey(data.id, key),
       JSON.stringify(failResponse),
     );
     return failResponse;
