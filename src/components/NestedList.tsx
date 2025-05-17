@@ -89,7 +89,7 @@ const NestedList = ({ data, prefix }: { data: Entry[]; prefix: string }) => {
   const itemMapper =
     (currentPath: string = '') =>
     (item: Entry): ReactNode => {
-      const newPath = `/${currentPath}/${item.slug}`;
+      const newPath = `${currentPath}/${item.slug}`;
       if (!item.container.isEncrypted && item.container.content.contentType === "children") {
         return (
           <NestedListItem key={item.slug} label={item.title} isLocked={item.container.isEncrypted} url={newPath}>
@@ -103,7 +103,7 @@ const NestedList = ({ data, prefix }: { data: Entry[]; prefix: string }) => {
       );
     };
 
-  return <ul className="nested-list">{data.map(itemMapper(prefix))}</ul>;
+  return <ul className="nested-list">{data.map(itemMapper("/" + prefix))}</ul>;
 };
 
 export default NestedList;
