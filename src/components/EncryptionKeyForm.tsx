@@ -20,12 +20,16 @@ const EncryptionKeyForm = () => {
           onChange={(e) => setInput(e.target.value)}
           type="text"
           autoFocus
-          placeholder='🔑 Dešifrovací klíč'
+          placeholder="🔑 Dešifrovací klíč"
         />
       </div>
       <div>
-        <button className="encryption-key-form__button" onClick={handleAddKey} type="button">
-         Odemknout
+        <button
+          className="encryption-key-form__button"
+          onClick={handleAddKey}
+          type="button"
+        >
+          Odemknout
         </button>
       </div>
     </form>

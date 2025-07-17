@@ -1,5 +1,6 @@
 import PouchDB from 'pouchdb-browser';
 import { Entry } from '../types/entry/entry';
+import { store } from '../state/store';
 
 const localDB = new PouchDB<Entry>(import.meta.env.VITE_LOCAL_DB);
 
@@ -14,6 +15,14 @@ localDB.replicate
   })
   .on('change', (info) => {
     console.log('Replication change', info);
+    store.ui.aside.entries.set(
+      info.docs.map((_item) => ({
+        slug: _item._id,
+        id: _item._id,
+        title: _item.title,
+        type: _item.entryType,
+      })),
+    );
   })
   .on('error', (err) => console.error('Replication error', err));
 
